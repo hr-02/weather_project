@@ -5,7 +5,7 @@ def popuCSV(precipitation,temp_max,temp_min,wind,weather):
 	# list of column names
 	field_names = ['date','precipitation','temp_max','temp_min','wind','weather']
 
-	# Dictionary
+	# Dictionary of Rupokk
 	today = date.today()
 	memo={'date':today,'precipitation':precipitation,'temp_max':temp_max,'temp_min':temp_min,'wind':wind,'weather':weather}
 	
