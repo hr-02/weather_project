@@ -32,9 +32,8 @@ sns.heatmap(ds1.isnull())
 #x=ds1[['MinTemp','MaxTemp','Rainfall','Evaporation','Sunshine','WindGustSpeed','WindSpeed9am','Humidity3pm','Pressure9am','Pressure3pm','Cloud9am','Cloud3pm','Temp9am','Temp3pm',]].values #iloc[:,:-1].values
 #y=ds1[['RainToday','RainTomorrow']].values
 
-#weather_data.csv
-#x=ds1[['Summary','Precip Type','Temperature (C)','Apparent Temperature (C)','Humidity','Wind Speed (km/h)','Wind Bearing (degrees)','Visibility (km)','Loud Cover','Pressure (millibars)']].values
-#y=ds1[['Daily Summary']].values
+	from sklearn.ensemble import RandomForestClassifier
+	model=RandomForestClassifier(n_estimators=95)
 
 
 #seattle-weather.csv
