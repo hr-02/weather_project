@@ -1,270 +1,188 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-import warnings
-warnings.filterwarnings("ignore")
+def accuracy(precipitation,temp_max,temp_min,wind,weather):
+	import numpy as np
+	import matplotlib.pyplot as plt
+	import pandas as pd
+	import seaborn as sns
+	import warnings
+	warnings.filterwarnings("ignore")
 
-# In[8]:
-
-
-ds=pd.read_csv('E:\weather_project\seattle-weather.csv')
-ds
+	ds=pd.read_csv('E:/weather_project/seattle-weather.csv')
+	ds
 
 
-# In[9]:
+	sns.heatmap(ds.isnull())
+	ds1=ds.dropna()
 
 
-sns.heatmap(ds.isnull())
-ds1=ds.dropna()
+
+	sns.heatmap(ds1.isnull())
 
 
-# In[10]:
+	#seattle-weather.csv
+	x=ds1[['precipitation','temp_max','temp_min','wind']].values 
+	y=ds1[['weather']].values
 
 
-sns.heatmap(ds1.isnull())
 
 
-# In[12]:
+
+	from sklearn.model_selection import train_test_split
+	x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.3)
 
 
-#predict
-#x=ds1[['MinTemp','MaxTemp','Rainfall','Evaporation','Sunshine','WindGustSpeed','WindSpeed9am','Humidity3pm','Pressure9am','Pressure3pm','Cloud9am','Cloud3pm','Temp9am','Temp3pm',]].values #iloc[:,:-1].values
-#y=ds1[['RainToday','RainTomorrow']].values
+	print("no of rows,column",x.shape)
+	print("x_train",x_train.shape)
+	print("x_test",x_test.shape)
+	print("y_train",y_train.shape)
+	print("y_test",y_test.shape)
 
 	from sklearn.ensemble import RandomForestClassifier
 	model=RandomForestClassifier(n_estimators=95)
 
 
-#seattle-weather.csv
-x=ds1[['precipitation','temp_max','temp_min','wind']].values 
-y=ds1[['weather']].values
+	model.fit(x_train,y_train)
 
 
-# In[13]:
+	model.score(x_test,y_test)*100
 
 
-from sklearn.model_selection import train_test_split
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.3)
+	y_predict=model.predict(x_test)
 
 
-# In[14]:
+	y_test=y_test.reshape(-1,1)
+	y_pred=y_predict.reshape(-1,1)
 
+	df=np.concatenate((y_test,y_pred),axis=1)
+	dataframe=pd.DataFrame(df,columns=['current weather','prediction of weather'])
 
-print("no of rows,column",x.shape)
-print("x_train",x_train.shape)
-print("x_test",x_test.shape)
-print("y_train",y_train.shape)
-print("y_test",y_test.shape)
+	dataframe
 
 
-# In[15]:
+	from sklearn.metrics import confusion_matrix
+	cm=confusion_matrix(y_test,y_pred)
 
+	cm=confusion_matrix(y_test,y_pred)
+	sns.heatmap(cm,annot=True)
+	plt.xlabel("predicted")
+	plt.ylabel("true")
 
-x_train
 
+	ds1.tail()
 
-# In[16]:
 
+	tp1=ds1.iloc[0:1460]
+	tp1
 
-y_train
 
+	
+	x2=tp1[['precipitation','temp_max','temp_min','wind']].values 
+	y2=tp1[['weather']].values
 
-# In[17]:
 
+	x2
 
-from sklearn.ensemble import RandomForestClassifier
-model=RandomForestClassifier(n_estimators=95)
+	y2
 
 
-# In[18]:
+	# this is the portion we need to change
+	#tp=ds1.tail(1)#iloc[1460:1461]
+	#tp
+	#print(tp)
 
+	# In[69]:
 
-model.fit(x_train,y_train)
 
+	x1=[[precipitation,temp_max,temp_min,wind]] #tp[['precipitation','temp_max','temp_min','wind']].values 
+	y1=[[weather]]#tp[['weather']].values
 
-# In[19]:
+	print("this is x1 ",x1)
+	print("this is y1 ",y1)
+	# In[70]:
 
 
-model.score(x_test,y_test)*100
+	x1
 
 
-# In[20]:
+	# In[71]:
 
 
-y_predict=model.predict(x_test)
+	y1
 
 
-# In[21]:
+	# In[72]:
 
 
-y_test=y_test.reshape(-1,1)
-y_pred=y_predict.reshape(-1,1)
+	print("x_train",x2.shape)
+	#print("x_test",x1.shape)
+	print("y_train",y2.shape)
+	#print("y_test",y1.shape)
 
 
-# In[22]:
+	# In[73]:
 
 
+	model.fit(x2,y2)
 
-df=np.concatenate((y_test,y_pred),axis=1)
-dataframe=pd.DataFrame(df,columns=['current weather','prediction of weather'])
 
+	# In[74]:
 
-# In[23]:
 
+	model.score(x1,y1)*100
 
-dataframe
 
+	# In[75]:
 
-# In[24]:
 
+	y_predict1=model.predict(x1)
 
-from sklearn.metrics import confusion_matrix
-cm=confusion_matrix(y_test,y_pred)
 
+	# In[76]:
 
-# In[25]:
 
+	#y1=y1.reshape(-1,1)
+	y1_pred=y_predict1.reshape(-1,1)
 
-cm=confusion_matrix(y_test,y_pred)
-sns.heatmap(cm,annot=True)
-plt.xlabel("predicted")
-plt.ylabel("true")
 
+	# In[77]:
 
-# In[26]:
 
+	y_predict1
 
-ds1.tail()
 
+	# In[78]:
 
-# In[64]:
 
+	#y1_pred=y_predict1.reshape(-1,1)
+	#tp=np.concatenate((y1,y1_pred),axis=1)
+	#dataframe1=pd.DataFrame(tp,columns=['current weather','prediction of weather'])
 
-tp1=ds1.iloc[0:1460]
-tp1
 
+	# In[79]:
 
-# In[65]:
 
+#dataframe1
 
-x2=tp1[['precipitation','temp_max','temp_min','wind']].values 
-y2=tp1[['weather']].values
 
+	# In[80]:
 
-# In[66]:
-
-
-x2
-
-
-# In[67]:
-
-
-y2
-
-
-# In[68]:
-
-# this is the portion we need to change
-tp=ds1.iloc[1460:1461]
-tp
-
-
-# In[69]:
-
-
-x1=tp[['precipitation','temp_max','temp_min','wind']].values 
-y1=tp[['weather']].values
-
-
-# In[70]:
-
-
-x1
-
-
-# In[71]:
-
-
-y1
-
-
-# In[72]:
-
-
-print("x_train",x2.shape)
-print("x_test",x1.shape)
-print("y_train",y2.shape)
-print("y_test",y1.shape)
-
-
-# In[73]:
-
-
-model.fit(x2,y2)
-
-
-# In[74]:
-
-
-model.score(x1,y1)*100
-
-
-# In[75]:
-
-
-y_predict1=model.predict(x1)
-
-
-# In[76]:
-
-
-y1=y1.reshape(-1,1)
-y1_pred=y_predict1.reshape(-1,1)
-
-
-# In[77]:
-
-
-y_predict1
-
-
-# In[78]:
-
-
-y1_pred=y_predict1.reshape(-1,1)
-tp=np.concatenate((y1,y1_pred),axis=1)
-dataframe1=pd.DataFrame(tp,columns=['current weather','prediction of weather'])
-
-
-# In[79]:
-
-
-dataframe1
-
-
-# In[80]:
-
-
-print("the current weather is :")
-
-if y1_pred==1:
-    #print("drizzle")
-    finalaccuracy="drizzle"
-elif y1_pred==2:
-    finalaccuracy="rainy"
-elif y1_pred==3:
-    finalaccuracy="sunny"
-elif y1_predict==4:
-    finalaccuracy="snowy"
-elif y1_pred==5:
-    finalaccuracy="foggy"    
-
-def accuracy():
 	global finalaccuracy
+	print("you can expect :")
+
+	if y1_pred==1:
+		#print("drizzle")
+		finalaccuracy="drizzle"
+	elif y1_pred==2:
+		finalaccuracy="rainy/cloudy"
+	elif y1_pred==3:
+		finalaccuracy="sunny"
+	elif y1_pred==4:
+		finalaccuracy="snowy"
+	elif y1_pred==5:
+		finalaccuracy="foggy"    
+
+	
 	return finalaccuracy
 
 
-print(accuracy())
+#print(accuracy(weather))
 

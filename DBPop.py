@@ -12,24 +12,7 @@ def index():
 
 @route('/login')
 def login():
-	return '''
-		<h2> Rupak Weather Portal </h2>
-		<form action="/login" method="post">
-		<fieldset>
-		<legend> Update Timings: </legend><br>
-						
-			Precipitation: <input name="precipitation" type="text" placeholder="numeric values" /><br>
-			Max Temperature: <input name="temp_max" type="text" /><br>
-			Min Temperature: <input name="temp_min" type="text" /><br>
-			Wind: <input name="wind" type="text" /><br>
-			Weather: <input name="weather" type="text" /><br>
-
-			<input value="Update" type="submit" />
-		</fieldset>
-		</form>
-
-		
-	'''
+	return template('input_box')
 
 @route('/login', method='POST')
 def do_login():
@@ -45,9 +28,26 @@ def do_login():
 	except:
 		return "<p>File Write Error</p>"
 	finally:
-		output_of_model = str(start_learning())
+		output_of_model = str(start_learning(precipitation,temp_max,temp_min,wind,weather))
 		formhtml = "<h1>weather is ",output_of_model,"</h1>"
-		return formhtml
+		
+		if output_of_model=="sunny":
+			return template('sunny')
+			
+		elif output_of_model=="rainy/cloudy":
+			return template('cloudy')
+			
+		elif output_of_model=="drizzle":
+			return template('drizzle')
+			
+		elif output_of_model=="snowy":
+			return template('snowy')
+			
+		elif output_of_model=="foggy'":
+			return template('foggy')
+									
+		else:
+			return formhtml
 
 os.system('START http://localhost:45000')
 run(host='0.0.0.0', port=45000, debug = True)

@@ -5,12 +5,14 @@ def popuCSV(precipitation,temp_max,temp_min,wind,weather):
 	# list of column names
 	field_names = ['date','precipitation','temp_max','temp_min','wind','weather']
 
-	# Dictionary of Rupokk
+	
 	today = date.today()
 	memo={'date':today,'precipitation':precipitation,'temp_max':temp_max,'temp_min':temp_min,'wind':wind,'weather':weather}
-	
-	f_object = csv.writer(open('seattle-weather.csv','a'))
+	#print("list is "+memo)
+	f_object = csv.writer(open('E:/weather_project/seattle-weather.csv','a'))
 	f_object.writerow([memo['date'],memo['precipitation'],memo['temp_max'],memo['temp_min'],memo['wind'],memo['weather']])
+
+	
 
 	# Open your CSV file in append mode
 	# Create a file object for this file
@@ -22,6 +24,11 @@ def popuCSV(precipitation,temp_max,temp_min,wind,weather):
 		# You will get a object of DictWriter
 		dictwriter_object = DictWriter(f_object, fieldnames=field_names)
 
+
+writer_object=writer(f_object)
+writer_object.writerow(memo)
+
+
 		#Pass the dictionary as an argument to the Writerow()
 		dictwriter_object.writerow(dict)
 
@@ -30,8 +37,8 @@ def popuCSV(precipitation,temp_max,temp_min,wind,weather):
 	'''
 
 
-def start_learning():
+def start_learning(precipitation,temp_max,temp_min,wind,weather):
 	import random_forest
-	return random_forest.accuracy()
+	return random_forest.accuracy(precipitation,temp_max,temp_min,wind,weather)
 
-popuCSV(12.5,1.7,-2.8,5,4)
+#popuCSV(12.5,1.7,-2.8,5,4)
