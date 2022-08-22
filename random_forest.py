@@ -81,6 +81,7 @@ def accuracy(precipitation,temp_max,temp_min,wind,weather):
 
 	x2
 
+
 	y2
 
 

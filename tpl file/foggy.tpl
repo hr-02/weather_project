@@ -42,10 +42,10 @@
     <body>
       <div class="card">
       <div>
-        <img src="https://i.gifer.com/origin/b6/b61f95537ed390713e4025ead3da967d.gif">
+        <img src="https://c.tenor.com/5ImWLS5QAJgAAAAC/foggy-fog.gif">
       </div>
         <h1>Success</h1> 
-        <p>Weather is Drizzle<br/></p>
+        <p>Weather is Foggy<br/></p>
         <br><br>
         <button onclick="document.location='/'">Home</button>
       </div>

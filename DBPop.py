@@ -32,19 +32,19 @@ def do_login():
 		formhtml = "<h1>weather is ",output_of_model,"</h1>"
 		
 		if output_of_model=="sunny":
-			return template('sunny')
+			return template('sunny.html')
 			
 		elif output_of_model=="rainy/cloudy":
-			return template('cloudy')
+			return template('cloudy.html')
 			
 		elif output_of_model=="drizzle":
-			return template('drizzle')
+			return template('drizzle.html')
 			
 		elif output_of_model=="snowy":
-			return template('snowy')
+			return template('snowy.html')
 			
 		elif output_of_model=="foggy'":
-			return template('foggy')
+			return template('foggy.html')
 									
 		else:
 			return formhtml
