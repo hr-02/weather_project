@@ -1,2 +1,2 @@
 # weather_project
- My_Project
+ B.Tech Final Year Project on Weather Prediction using machine learning
